@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceHub - Trusted Local Services</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">ServiceHub</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#providers">Providers</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#" onclick="showMyBookings()" class="btn-secondary">My Bookings</a></li>
+                <li><a href="#" class="btn-secondary" onclick="openModal('loginModal')">Login</a></li>
+                <li><a href="#" class="btn-primary" onclick="openModal('signupModal')">Sign Up</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Trusted Local<br>Service Providers</h1>
+                <p>Connect with verified professionals in your area. From plumbing to cleaning, we've got you covered with quality service providers you can trust.</p>
+                
+                <div class="search-box">
+                    <form class="search-form" onsubmit="handleSearch(event)">
+                        <div class="form-group">
+                            <label for="service">What service do you need?</label>
+                            <select id="service" required>
+                                <option value="">Select a service</option>
+                                <option value="plumbing">Plumbing</option>
+                                <option value="electrical">Electrical</option>
+                                <option value="cleaning">Cleaning</option>
+                                <option value="hvac">HVAC</option>
+                                <option value="handyman">Handyman</option>
+                                <option value="landscaping">Landscaping</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Your location</label>
+                            <select id="location" required>
+                                <option value="">Select your city</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Coimbatore">Coimbatore</option>
+                                <option value="Madurai">Madurai</option>
+                                <option value="Tiruchirappalli">Tiruchirappalli (Trichy)</option>
+                                <option value="Salem">Salem</option>
+                                <option value="Tirunelveli">Tirunelveli</option>
+                                <option value="Thoothukudi">Thoothukudi (Tuticorin)</option>
+                                <option value="Erode">Erode</option>
+                                <option value="Vellore">Vellore</option>
+                                <option value="Tanjore">Tanjore (Thanjavur)</option>
+                                <option value="Dindigul">Dindigul</option>
+                                <option value="Cuddalore">Cuddalore</option>
+                                <option value="Kanchipuram">Kanchipuram</option>
+                                <option value="Karur">Karur</option>
+                                <option value="Ramanathapuram">Ramanathapuram</option>
+                                <option value="Sivaganga">Sivaganga</option>
+                                <option value="Virudhunagar">Virudhunagar</option>
+                                <option value="Theni">Theni</option>
+                                <option value="Namakkal">Namakkal</option>
+                                <option value="Dharmapuri">Dharmapuri</option>
+                                <option value="Krishnagiri">Krishnagiri</option>
+                                <option value="Tiruvannamalai">Tiruvannamalai</option>
+                                <option value="Villupuram">Villupuram</option>
+                                <option value="Pudukkottai">Pudukkottai</option>
+                                <option value="Nagapattinam">Nagapattinam</option>
+                                <option value="Tiruvarur">Tiruvarur</option>
+                                <option value="Ariyalur">Ariyalur</option>
+                                <option value="Perambalur">Perambalur</option>
+                                <option value="Nilgiris">Nilgiris (Ooty)</option>
+                                <option value="Kanyakumari">Kanyakumari</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Categories -->
+    <section class="categories" id="services">
+        <div class="container">
+            <h2 class="section-title">Popular Services</h2>
+            <p class="section-subtitle">Browse our most requested services and find the perfect professional for your needs</p>
+            
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('plumbing')">
+                    <span class="category-icon">🔧</span>
+                    <h3>Plumbing</h3>
+                    <p>Emergency repairs, installations, pipe work</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('electrical')">
+                    <span class="category-icon">⚡</span>
+                    <h3>Electrical</h3>
+                    <p>Wiring, outlets, panel upgrades</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('cleaning')">
+                    <span class="category-icon">🧹</span>
+                    <h3>Cleaning</h3>
+                    <p>House cleaning, deep cleaning, move-out</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('hvac')">
+                    <span class="category-icon">❄️</span>
+                    <h3>HVAC</h3>
+                    <p>AC repair, heating, maintenance</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('handyman')">
+                    <span class="category-icon">🔨</span>
+                    <h3>Handyman</h3>
+                    <p>General repairs, furniture assembly</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('landscaping')">
+                    <span class="category-icon">🌿</span>
+                    <h3>Landscaping</h3>
+                    <p>Lawn care, garden design, tree service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Featured Providers -->
+<section class="providers" id="providers">
+    <div class="container">
+        <h2 class="section-title">Top-Rated Providers</h2>
+        <p class="section-subtitle">Meet our highest-rated service professionals</p>
+        
+        <!-- Add a status message -->
+        <div id="providersStatus" style="text-align: center; margin-bottom: 20px; display: none;"></div>
+        
+        <div class="providers-grid" id="providersGrid">
+            <!-- Provider cards will be loaded here -->
+        </div>
+        
+        <!-- Show More Button (initially hidden) -->
+        <div id="showMoreContainer" style="text-align: center; margin-top: 30px; display: none;">
+            <button onclick="showMoreProviders()" class="btn-primary" id="showMoreBtn">
+                Show More Providers
+            </button>
+        </div>
+    </div>
+</section>
+
+   <!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Why Choose ServiceHub?</h2>
+        <p class="section-subtitle">We make finding reliable local services simple, safe, and transparent</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Verified Providers</h3>
+                <p>Every service provider is background-checked, licensed, and insured. We verify credentials so you don't have to worry.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Transparent Pricing</h3>
+                <p>See upfront pricing with no hidden fees. Get detailed quotes before you book and pay only for the work completed.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Real-Time Tracking</h3>
+                <p>Track your service request from booking to completion. Get live updates on provider location and job progress.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Trusted Reviews</h3>
+                <p>Read authentic reviews from real customers. Our review system ensures honest feedback to help you make informed decisions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <h2 class="section-title">About ServiceHub</h2>
+        <p class="section-subtitle">Connecting customers with trusted service professionals since 2025</p>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Our Mission</h3>
+                <p>ServiceHub was founded with a simple mission: to make finding reliable local service providers easy, safe, and transparent for everyone.</p>
+                
+                <h3>How We Verify Providers</h3>
+                <p>We thoroughly screen every service professional on our platform through background checks, license verification, and insurance validation.</p>
+                
+                <h3>Our Commitment</h3>
+                <p>We're committed to ensuring quality service experiences through our rating system, customer support, and satisfaction guarantee.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat">
+                    <h4>500+</h4>
+                    <p>Verified Providers</p>
+                </div>
+                <div class="stat">
+                    <h4>2,000+</h4>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat">
+                    <h4>95%</h4>
+                    <p>Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ServiceHub</h3>
+                    <p>Your trusted marketplace for finding reliable local service providers. Making home services simple and transparent.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>For Customers</h3>
+                    <ul>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Safety & Trust</a></li>
+                        <li><a href="#">Customer Support</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>For Providers</h3>
+                    <ul>
+                        <li><a href="#">Join as a Provider</a></li>
+                        <li><a href="#">Provider Resources</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Provider Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ServiceHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+   <!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your ServiceHub account</p>
+        
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="loginUserType">Account Type</label>
+                <select id="loginUserType" required>
+                    <option value="customer">Customer</option>
+                    <option value="provider">Service Provider</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 16px;">
+            <a href="#" style="color: #2563eb; font-size: 14px;" onclick="showForgotPassword()">Forgot password?</a>
+        </div>
+    </div>
+</div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
+            <h2>Join ServiceHub</h2>
+            <p>Create your account to get started</p>
+            
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="userType">I am a:</label>
+                    <select id="userType" required>
+                        <option value="">Select account type</option>
+                        <option value="customer">Customer looking for services</option>
+                        <option value="provider">Service provider</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('bookingModal')">&times;</button>
+            <h2>Book Service</h2>
+            <p id="bookingProvider">Book with selected provider</p>
+            
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label for="serviceType">Service Type</label>
+                    <select id="serviceType" required>
+                        <option value="">Select service type</option>
+                        <option value="emergency">Emergency Repair</option>
+                        <option value="installation">Installation</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="consultation">Consultation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDate">Preferred Date</label>
+                    <input type="date" id="serviceDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceTime">Preferred Time</label>
+                    <select id="serviceTime" required>
+                        <option value="">Select time</option>
+                        <option value="9:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDescription">Service Description</label>
+                    <textarea id="serviceDescription" placeholder="Please describe your service needs in detail..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone">Phone Number</label>
+                    <input type="tel" id="contactPhone" required>
+                    
+                </div>
+                 <button type="submit" class="btn-primary">Book Service</button>
+               
+            </form>
+        </div>
+    </div>
+
+    <!-- My Bookings Modal -->
+    <div id="bookingsModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <button class="modal-close" onclick="closeModal('bookingsModal')">&times;</button>
+            <h2>My Bookings</h2>
+            <p>View and manage your service bookings</p>
+            
+            <div id="bookingsList">
+                <!-- Bookings will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Service Modal -->
+    <div id="trackModal" class="modal">
+        <div class="modal-content track-modal">
+            <button class="modal-close" onclick="closeModal('trackModal')">&times;</button>
+            <h2>Track Your Service</h2>
+            <p>Enter your tracking ID to see real-time service updates</p>
+            
+            <div class="track-input-section">
+                <div class="form-group">
+                    <label for="trackingIdInput">Tracking ID</label>
+                    <input type="text" id="trackingIdInput" placeholder="e.g., SH240920001" style="margin-bottom: 12px;">
+                    <button onclick="trackService()" class="btn-primary" style="width: 100%;">Track Service</button>
+                </div>
+            </div>
+            
+            <div id="trackingResults" style="display: none;">
+                <!-- Tracking results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Track Service Button -->
+    <button id="trackServiceBtn" class="btn-floating" onclick="openModal('trackModal')">📍 Track Service</button>
+<!-- Link to JS -->
+ <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
